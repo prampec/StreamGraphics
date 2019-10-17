@@ -7,6 +7,8 @@ The idea is that
 - graphics commands are pushed to the web interface,
 - visualization is done in the web interface.
 
+![Screenshot](https://sharedinventions.com/wp-content/uploads/2019/10/Screen-Shot-2019-10-17-at-21.26.40.png)
+
 The visualization is done with PixiJS.
 
 Code is written for .Net Core v2.2
