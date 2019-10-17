@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        <title>StreamGraphics demo</title>
+        <script src="js/pixi.min.js"></script>
+    </head>
+    <body>
+        <script src="js/stream-graphics.js"></script>
+        <script>
+            const gr = StreamGraphics.init();
+        </script>
+        <p>StreamGraphics Demo</p>
+        <p>
+            <input type="button" value="Continue" onclick="
+                if (this.value == 'Continue') { gr.run(); this.value='Pause'; } else { gr.pause(); this.value='Continue'; }">
+            <input type="button" value="Turn ON burst mode" onclick="
+                if (this.value == 'Turn ON burst mode') { gr.burstMode = true; this.value='Turn OFF burst mode'; } else { gr.burstMode = false; this.value='Turn ON burst mode'; }">
+            <input type="button" value="Reset" onclick="gr.reset()">
+        </p>
+    </body>
+</html>
