@@ -26,8 +26,8 @@ var StreamGraphics = {
     running: false,
     loadTimer: 0,
     queueTimer: 0,
-    burstMode: false,
-    queueSize: 200,
+    stepMode: false,
+    bufferSize: 2000,
     objects: {},
     textStyle: new PIXI.TextStyle({
         fontFamily: 'Lucida Console',
@@ -74,7 +74,7 @@ var StreamGraphics = {
                 });
             }
         };
-        var queueSpace = sg.queueSize - sg.commandQueue.length;
+        var queueSpace = sg.bufferSize - sg.commandQueue.length;
         xmlhttp.open("GET", "api/commands?count=" + queueSpace, true);
         xmlhttp.send();
     },
@@ -119,10 +119,12 @@ var StreamGraphics = {
                 g.lineStyle(0);
                 g.beginFill(command.color, 1);
                 g.drawCircle(
-                    command.centerX,
-                    command.centerY,
+                    0,
+                    0,
                     command.radius);
                 g.endFill();
+                g.x = command.centerX;
+                g.y = command.centerY;
                 sg.app.stage.addChild(g);
                 sg.objects[command.id] = g;
             }
@@ -132,9 +134,11 @@ var StreamGraphics = {
                 g.lineStyle(0);
                 g.beginFill(command.color, 1);
                 g.drawRect(
-                    command.x, command.y,
+                    0, 0,
                     command.width, command.height);
                 g.endFill();
+                g.x = command.x;
+                g.y = command.y;
                 sg.app.stage.addChild(g);
                 sg.objects[command.id] = g;
             }
@@ -158,7 +162,15 @@ var StreamGraphics = {
                 sg.app.stage.addChild(g);
                 sg.objects[command.id] = g;
             }
-            if (!sg.burstMode)
+            else if (command.type == "stepMode")
+            {
+                sg.stepMode = command.value == "ON";
+            }
+            else if (command.type == "bufferSize")
+            {
+                sg.bufferSize = command.value;
+            }
+            if ((!sg.stepMode) || (command.type == "step")) 
             {
                 break;
             }
@@ -168,6 +180,7 @@ var StreamGraphics = {
         if (this.running) {
             clearTimeout(this.loadTimer);
             clearTimeout(this.queueTimer);
+            // this.app.ticker.add(this.processQueue);
             this.running = false;
         }
     },
@@ -177,6 +190,7 @@ var StreamGraphics = {
         {
             this.loadTimer = setInterval(this.load, 500);
             this.queueTimer = setInterval(this.processQueue, 10);
+            // this.app.ticker.add(this.processQueue);
             this.running = true;
         }
     },

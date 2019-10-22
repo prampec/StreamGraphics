@@ -52,7 +52,7 @@ namespace StreamGraphics
             string bigtextId = StreamGraphics.drawText("Hello World!", 180, 300 + 40 + 50 + 20, 70, Color.CYAN);
             StreamGraphics.rotateTo(bigtextId, -4);
             StreamGraphics.drawText(
-                "Try clicking with the mouse; use arrow keys; type something, use BACKSPACE to erase typed text.",
+                "Try clicking with the mouse; use arrow keys; type something, use BACKSPACE to erase typed text!",
                 40, 570, 12, Color.WHITE);
 
             robotX = 700;
@@ -82,25 +82,25 @@ namespace StreamGraphics
             }
             else if (key == "ArrowUp")
             {
-                robotY -= 5;
+                robotY -= 10;
                 StreamGraphics.moveTo(robotId, robotX, robotY);
                 return;
             }
             else if (key == "ArrowUp")
             {
-                robotY -= 5;
+                robotY -= 10;
                 StreamGraphics.moveTo(robotId, robotX, robotY);
                 return;
             }
             else if (key == "ArrowDown")
             {
-                robotY += 5;
+                robotY += 10;
                 StreamGraphics.moveTo(robotId, robotX, robotY);
                 return;
             }
             else if (key == "ArrowLeft")
             {
-                robotX -= 5;
+                robotX -= 10;
                 StreamGraphics.moveTo(robotId, robotX, robotY);
                 return;
             }

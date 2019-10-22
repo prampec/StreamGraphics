@@ -44,7 +44,6 @@ namespace StreamGraphics
                     rnd.Next(800),
                     rnd.Next(600),
                     new Color(rnd.Next(256), rnd.Next(256), rnd.Next(256)));
-//                Thread.Sleep(100);
             }
         }
     }

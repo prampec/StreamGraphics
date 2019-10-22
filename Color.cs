@@ -18,7 +18,9 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
- 
+
+using System;
+
 namespace StreamGraphics
 {
     public class Color
@@ -55,6 +57,21 @@ namespace StreamGraphics
         public int toInt()
         {
             return red * 256 * 256 + green * 256 + blue;
+        }
+
+        public static Color randomLight(Random rnd)
+        {
+            while(true)
+            {
+                int r = rnd.Next(255);
+                int g = rnd.Next(255);
+                int b = rnd.Next(255);
+
+                if ((r + b + g) > 150)
+                {
+                    return new Color(r, g, b);
+                }
+            }
         }
 
         public static readonly Color WHITE = new Color(255, 255, 255);

@@ -27,7 +27,7 @@ namespace StreamGraphics
 {
     public sealed class StreamGraphics
     {
-        private const int QUEUE_SIZE = 200;
+        private int bufferSize = 200;
 
         private static StreamGraphics instance = null;
         private static object instLock = new object();
@@ -56,6 +56,9 @@ namespace StreamGraphics
                 }
             }
         }
+
+        public static int width { get { return 800; } } // TODO: get this dynamically.
+        public static int height { get { return 600; } } // TODO: get this dynamically.
 
         internal void reset()
         {
@@ -120,7 +123,7 @@ namespace StreamGraphics
 
         private void addCommand(object command)
         {
-            while (commandQueue.Count >= QUEUE_SIZE)
+            while (commandQueue.Count >= bufferSize)
             {
                 Thread.Sleep(1);
             }
@@ -254,6 +257,21 @@ namespace StreamGraphics
                 id = id });
         }
 
+        public static void setStepMode(bool stepModeOn)
+        {
+            StreamGraphics.Insance.addCommand(new {
+                type = "stepMode",
+                value = stepModeOn ? "ON" : "OFF" });
+        }
+
+        public static void setBufferSize(int bufferSize)
+        {
+            StreamGraphics.instance.bufferSize = bufferSize;
+            StreamGraphics.Insance.addCommand(new {
+                type = "bufferSize",
+                value = bufferSize });
+        }
+
         private static string generateId()
         {
             string guid = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
@@ -277,6 +295,12 @@ namespace StreamGraphics
             {
                 return;
             }
+        }
+
+        internal static void step()
+        {
+            StreamGraphics.Insance.addCommand(new {
+                type = "step"});
         }
     }
 }

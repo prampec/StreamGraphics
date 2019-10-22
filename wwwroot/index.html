@@ -13,11 +13,12 @@
         </script>
         <p>StreamGraphics Demo</p>
         <p>
-            <input type="button" value="Continue" onclick="
+            <input type="button" value="Reset" onclick="
+                var btn = document.getElementById('runControl');
+                if (btn.value == 'Continue') { btn.click(); }
+                gr.reset()">
+            <input type="button" value="Continue" id="runControl" onclick="
                 if (this.value == 'Continue') { gr.run(); this.value='Pause'; } else { gr.pause(); this.value='Continue'; }">
-            <input type="button" value="Turn ON burst mode" onclick="
-                if (this.value == 'Turn ON burst mode') { gr.burstMode = true; this.value='Turn OFF burst mode'; } else { gr.burstMode = false; this.value='Turn ON burst mode'; }">
-            <input type="button" value="Reset" onclick="gr.reset()">
-        </p>
+    </p>
     </body>
 </html>

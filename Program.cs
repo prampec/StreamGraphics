@@ -37,7 +37,8 @@ namespace StreamGraphics
         public static void Main(string[] args)
         {
             StreamGraphics.registerWorker(new DemoWorker());
-//            StreamGraphics.registerWorker(new SimpleWorker());
+            // StreamGraphics.registerWorker(new SimpleWorker());
+            // StreamGraphics.registerWorker(new StepWorker());
             CreateWebHostBuilder(args).Build().Run();
             StreamGraphics.shutdown();
         }
