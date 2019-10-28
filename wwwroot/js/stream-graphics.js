@@ -26,8 +26,8 @@ var StreamGraphics = {
     running: false,
     loadTimer: 0,
     queueTimer: 0,
-    stepMode: false,
     bufferSize: 2000,
+    stepDelayMs: 10,
     objects: {},
     textStyle: new PIXI.TextStyle({
         fontFamily: 'Lucida Console',
@@ -162,15 +162,17 @@ var StreamGraphics = {
                 sg.app.stage.addChild(g);
                 sg.objects[command.id] = g;
             }
-            else if (command.type == "stepMode")
+            else if (command.type == "stepDelayMs")
             {
-                sg.stepMode = command.value == "ON";
+                sg.stepDelayMs = command.value;
+                sg.pause();
+                sg.run();
             }
             else if (command.type == "bufferSize")
             {
                 sg.bufferSize = command.value;
             }
-            if ((!sg.stepMode) || (command.type == "step")) 
+            if (command.type == "step")
             {
                 break;
             }
@@ -189,7 +191,7 @@ var StreamGraphics = {
         if (!this.running)
         {
             this.loadTimer = setInterval(this.load, 500);
-            this.queueTimer = setInterval(this.processQueue, 10);
+            this.queueTimer = setInterval(this.processQueue, this.stepDelayMs);
             // this.app.ticker.add(this.processQueue);
             this.running = true;
         }

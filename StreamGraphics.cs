@@ -257,11 +257,11 @@ namespace StreamGraphics
                 id = id });
         }
 
-        public static void setStepMode(bool stepModeOn)
+        public static void setStepDelayMs(int delayMs)
         {
             StreamGraphics.Insance.addCommand(new {
-                type = "stepMode",
-                value = stepModeOn ? "ON" : "OFF" });
+                type = "stepDelayMs",
+                value = delayMs });
         }
 
         public static void setBufferSize(int bufferSize)

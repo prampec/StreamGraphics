@@ -38,6 +38,7 @@ namespace StreamGraphics
         public void run()
         {
             StreamGraphics.clear();
+            StreamGraphics.setStepDelayMs(10);
             for (int x = 0; x < 600; x+=10)
             {
                 StreamGraphics.drawLine(
@@ -46,11 +47,16 @@ namespace StreamGraphics
                     0,
                     600-x,
                     Color.RED);
+                StreamGraphics.step();
             }
+            StreamGraphics.setStepDelayMs(500);
             StreamGraphics.drawText("Hello World!", 180, 300, 30, Color.YELLOW);
+            StreamGraphics.step();
             StreamGraphics.drawText("Hello World!", 180, 300 + 40, 50, Color.MAGENTA);
+            StreamGraphics.step();
             string bigtextId = StreamGraphics.drawText("Hello World!", 180, 300 + 40 + 50 + 20, 70, Color.CYAN);
             StreamGraphics.rotateTo(bigtextId, -4);
+            StreamGraphics.step();
             StreamGraphics.drawText(
                 "Try clicking with the mouse; use arrow keys; type something, use BACKSPACE to erase typed text!",
                 40, 570, 12, Color.WHITE);
@@ -58,6 +64,8 @@ namespace StreamGraphics
             robotX = 700;
             robotY = 300;
             robotId = StreamGraphics.drawSprite("images/robot.png", robotX, robotY);
+            StreamGraphics.step();
+            StreamGraphics.setStepDelayMs(10);
         }
 
         public void onPointerDown(int x, int y)

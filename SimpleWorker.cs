@@ -44,6 +44,27 @@ namespace StreamGraphics
                     rnd.Next(800),
                     rnd.Next(600),
                     new Color(rnd.Next(256), rnd.Next(256), rnd.Next(256)));
+                StreamGraphics.step();
+            }
+        }
+
+        public void redNoise()
+        {
+            StreamGraphics.setStepDelayMs(50);
+            StreamGraphics.setBufferSize(60*StreamGraphics.width/20*StreamGraphics.height/20);
+            while (true)
+            {
+                StreamGraphics.clear();
+                for (int x = 0; x<StreamGraphics.width; x+=20)
+                {
+                    for (int y = 0; y<StreamGraphics.height; y+=20)
+                    {
+                        StreamGraphics.drawRect(
+                            x, y, 20, 20,
+                            new Color(rnd.Next(265), 0, 0));
+                    }
+                }
+                StreamGraphics.step();
             }
         }
     }

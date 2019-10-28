@@ -10,7 +10,6 @@ namespace StreamGraphics
         public void run()
         {
             StreamGraphics.setBufferSize(2000);
-            StreamGraphics.setStepMode(true);
             StreamGraphics.clear();
             List<Ball> balls = new List<Ball>();
             for (int i=0; i<30; i++)
