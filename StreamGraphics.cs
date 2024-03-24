@@ -29,7 +29,7 @@ namespace StreamGraphics
     {
         private int bufferSize = 200;
 
-        private static StreamGraphics instance = null;
+        private static StreamGraphics? instance = null;
         private static object instLock = new object();
 
         Queue<object> commandQueue = new Queue<object>();
@@ -42,7 +42,7 @@ namespace StreamGraphics
 
         }
 
-        public static StreamGraphics Insance
+        public static StreamGraphics Instance
         {
             get
             {
@@ -90,7 +90,7 @@ namespace StreamGraphics
         {
             foreach (GraphicsWorker worker in workers)
             {
-                InteractiveWorker iw = worker as InteractiveWorker;
+                InteractiveWorker? iw = worker as InteractiveWorker;
                 if (iw != null)
                 {
                     iw.onPointerDown(x, y);
@@ -102,7 +102,7 @@ namespace StreamGraphics
         {
             foreach (GraphicsWorker worker in workers)
             {
-                InteractiveWorker iw = worker as InteractiveWorker;
+                InteractiveWorker? iw = worker as InteractiveWorker;
                 if (iw != null)
                 {
                     iw.onKeyDown(key);
@@ -113,7 +113,7 @@ namespace StreamGraphics
         {
             foreach (GraphicsWorker worker in workers)
             {
-                InteractiveWorker iw = worker as InteractiveWorker;
+                InteractiveWorker? iw = worker as InteractiveWorker;
                 if (iw != null)
                 {
                     iw.onKeyUp(key);
@@ -153,11 +153,11 @@ namespace StreamGraphics
         public static void registerWorker(GraphicsWorker worker)
         {
             startWorker(worker);
-            StreamGraphics.Insance.workers.Add(worker);
+            StreamGraphics.Instance.workers.Add(worker);
         }
         public static void shutdown()
         {
-            foreach (Thread workerThread in StreamGraphics.Insance.workerThreads)
+            foreach (Thread workerThread in StreamGraphics.Instance.workerThreads)
             {
                 workerThread.Join(100);
             }
@@ -165,47 +165,53 @@ namespace StreamGraphics
 
         internal static void clear()
         {
-            StreamGraphics.Insance.addCommand(new {type = "clear"});
+            StreamGraphics.Instance.addCommand(new { type = "clear" });
         }
 
         public static string drawLine(int fromX, int fromY, int toX, int toY, Color color)
         {
             string id = generateId();
-            StreamGraphics.Insance.addCommand(new {
+            StreamGraphics.Instance.addCommand(new
+            {
                 id = id,
                 type = "line",
                 fromX = fromX,
                 fromY = fromY,
                 toX = toX,
                 toY = toY,
-                color = color.toInt() });
+                color = color.toInt()
+            });
             return id;
         }
 
         public static string drawCircle(int centerX, int centerY, int radius, Color color)
         {
             string id = generateId();
-            StreamGraphics.Insance.addCommand(new {
+            StreamGraphics.Instance.addCommand(new
+            {
                 id = id,
                 type = "circleCenter",
                 centerX = centerX,
                 centerY = centerY,
                 radius = radius,
-                color = color.toInt() });
+                color = color.toInt()
+            });
             return id;
         }
 
         public static string drawRect(int x, int y, int width, int height, Color color)
         {
             string id = generateId();
-            StreamGraphics.Insance.addCommand(new {
+            StreamGraphics.Instance.addCommand(new
+            {
                 id = id,
                 type = "rect",
                 x = x,
                 y = y,
                 width = width,
                 height = height,
-                color = color.toInt() });
+                color = color.toInt()
+            });
             return id;
         }
 
@@ -213,63 +219,77 @@ namespace StreamGraphics
             string image, int x, int y)
         {
             string id = generateId();
-            StreamGraphics.Insance.addCommand(new {
+            StreamGraphics.Instance.addCommand(new
+            {
                 id = id,
                 type = "sprite",
                 image = image,
                 x = x,
-                y = y });
+                y = y
+            });
             return id;
         }
         public static string drawText(
             string text, int x, int y, int size, Color color)
         {
             string id = generateId();
-            StreamGraphics.Insance.addCommand(new {
+            StreamGraphics.Instance.addCommand(new
+            {
                 id = id,
                 type = "text",
                 text = text,
                 x = x,
                 y = y,
                 size = size,
-                color = color.toInt() });
+                color = color.toInt()
+            });
             return id;
         }
         public static void delete(string id)
         {
-            StreamGraphics.Insance.addCommand(new {
+            StreamGraphics.Instance.addCommand(new
+            {
                 type = "delete",
-                id = id });
+                id = id
+            });
         }
         public static void moveTo(string id, int x, int y)
         {
-            StreamGraphics.Insance.addCommand(new {
+            StreamGraphics.Instance.addCommand(new
+            {
                 type = "moveTo",
                 x = x,
                 y = y,
-                id = id });
+                id = id
+            });
         }
         public static void rotateTo(string id, float angle)
         {
-            StreamGraphics.Insance.addCommand(new {
+            StreamGraphics.Instance.addCommand(new
+            {
                 type = "rotateTo",
                 angle = angle,
-                id = id });
+                id = id
+            });
         }
 
         public static void setStepDelayMs(int delayMs)
         {
-            StreamGraphics.Insance.addCommand(new {
+            StreamGraphics.Instance.addCommand(new
+            {
                 type = "stepDelayMs",
-                value = delayMs });
+                value = delayMs
+            });
         }
 
         public static void setBufferSize(int bufferSize)
         {
-            StreamGraphics.instance.bufferSize = bufferSize;
-            StreamGraphics.Insance.addCommand(new {
+            StreamGraphics.Instance.bufferSize = bufferSize;
+            StreamGraphics.Instance.addCommand(new
+            {
                 type = "bufferSize",
-                value = bufferSize });
+                value = bufferSize
+            });
         }
 
         private static string generateId()
@@ -281,7 +301,7 @@ namespace StreamGraphics
         private static void startWorker(GraphicsWorker worker)
         {
             Thread workerThread = new Thread((ThreadStart)delegate { runWorker(worker); });
-            StreamGraphics.Insance.workerThreads.Add(workerThread);
+            StreamGraphics.Instance.workerThreads.Add(workerThread);
             workerThread.Start();
         }
 
@@ -299,8 +319,10 @@ namespace StreamGraphics
 
         internal static void step()
         {
-            StreamGraphics.Insance.addCommand(new {
-                type = "step"});
+            StreamGraphics.Instance.addCommand(new
+            {
+                type = "step"
+            });
         }
     }
 }

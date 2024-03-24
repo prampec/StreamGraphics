@@ -18,7 +18,7 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
- 
+
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -33,19 +33,19 @@ namespace StreamGraphics
 
         public int robotX;
         private int robotY;
-        private string robotId;
+        private string? robotId;
 
         public void run()
         {
             StreamGraphics.clear();
             StreamGraphics.setStepDelayMs(10);
-            for (int x = 0; x < 600; x+=10)
+            for (int x = 0; x < 600; x += 10)
             {
                 StreamGraphics.drawLine(
                     x,
                     0,
                     0,
-                    600-x,
+                    600 - x,
                     Color.RED);
                 StreamGraphics.step();
             }
@@ -91,31 +91,31 @@ namespace StreamGraphics
             else if (key == "ArrowUp")
             {
                 robotY -= 10;
-                StreamGraphics.moveTo(robotId, robotX, robotY);
+                StreamGraphics.moveTo(robotId!, robotX, robotY);
                 return;
             }
             else if (key == "ArrowUp")
             {
                 robotY -= 10;
-                StreamGraphics.moveTo(robotId, robotX, robotY);
+                StreamGraphics.moveTo(robotId!, robotX, robotY);
                 return;
             }
             else if (key == "ArrowDown")
             {
                 robotY += 10;
-                StreamGraphics.moveTo(robotId, robotX, robotY);
+                StreamGraphics.moveTo(robotId!, robotX, robotY);
                 return;
             }
             else if (key == "ArrowLeft")
             {
                 robotX -= 10;
-                StreamGraphics.moveTo(robotId, robotX, robotY);
+                StreamGraphics.moveTo(robotId!, robotX, robotY);
                 return;
             }
             else if (key == "ArrowRight")
             {
                 robotX += 5;
-                StreamGraphics.moveTo(robotId, robotX, robotY);
+                StreamGraphics.moveTo(robotId!, robotX, robotY);
                 return;
             }
             if (key.Length > 1)
