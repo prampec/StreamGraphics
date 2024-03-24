@@ -35,6 +35,7 @@ namespace StreamGraphics
             var app = builder.Build();
 
             app.UseHttpsRedirection();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -42,9 +43,10 @@ namespace StreamGraphics
             app.UseAuthorization();
 
             // TODO: let dynamic configuration take effect without this dummy route.
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            // app.MapControllerRoute(
+            //     name: "default",
+            //     pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.MapControllers();
 
             app.Run();
 
