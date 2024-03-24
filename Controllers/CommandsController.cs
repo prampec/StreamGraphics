@@ -35,13 +35,13 @@ namespace StreamGraphics.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get([FromQuery] int count = 0)
         {
-            return Ok( StreamGraphics.Insance.pullCommands(count) );
+            return Ok(StreamGraphics.Insance.pullCommands(count));
         }
 
         // POST api/values
         [HttpPost]
         public void Post([FromQuery] string action,
-            [FromQuery] int x = 0,  [FromQuery] int y = 0,
+            [FromQuery] int x = 0, [FromQuery] int y = 0,
             [FromQuery] string key = null)
         {
             if (action == "reset")
