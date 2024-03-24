@@ -42,7 +42,7 @@ namespace StreamGraphics.Controllers
         [HttpPost]
         public void Post([FromQuery] string action,
             [FromQuery] int x = 0, [FromQuery] int y = 0,
-            [FromQuery] string key = null)
+            [FromQuery] string? key = null)
         {
             if (action == "reset")
             {

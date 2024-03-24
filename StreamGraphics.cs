@@ -29,7 +29,7 @@ namespace StreamGraphics
     {
         private int bufferSize = 200;
 
-        private static StreamGraphics instance = null;
+        private static StreamGraphics? instance = null;
         private static object instLock = new object();
 
         Queue<object> commandQueue = new Queue<object>();
@@ -90,7 +90,7 @@ namespace StreamGraphics
         {
             foreach (GraphicsWorker worker in workers)
             {
-                InteractiveWorker iw = worker as InteractiveWorker;
+                InteractiveWorker? iw = worker as InteractiveWorker;
                 if (iw != null)
                 {
                     iw.onPointerDown(x, y);
@@ -102,7 +102,7 @@ namespace StreamGraphics
         {
             foreach (GraphicsWorker worker in workers)
             {
-                InteractiveWorker iw = worker as InteractiveWorker;
+                InteractiveWorker? iw = worker as InteractiveWorker;
                 if (iw != null)
                 {
                     iw.onKeyDown(key);
@@ -113,7 +113,7 @@ namespace StreamGraphics
         {
             foreach (GraphicsWorker worker in workers)
             {
-                InteractiveWorker iw = worker as InteractiveWorker;
+                InteractiveWorker? iw = worker as InteractiveWorker;
                 if (iw != null)
                 {
                     iw.onKeyUp(key);
@@ -284,7 +284,7 @@ namespace StreamGraphics
 
         public static void setBufferSize(int bufferSize)
         {
-            StreamGraphics.instance.bufferSize = bufferSize;
+            StreamGraphics.Instance.bufferSize = bufferSize;
             StreamGraphics.Instance.addCommand(new
             {
                 type = "bufferSize",
