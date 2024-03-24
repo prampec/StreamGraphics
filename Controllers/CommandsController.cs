@@ -35,7 +35,7 @@ namespace StreamGraphics.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get([FromQuery] int count = 0)
         {
-            return Ok(StreamGraphics.Insance.pullCommands(count));
+            return Ok(StreamGraphics.Instance.pullCommands(count));
         }
 
         // POST api/values
@@ -46,11 +46,11 @@ namespace StreamGraphics.Controllers
         {
             if (action == "reset")
             {
-                StreamGraphics.Insance.reset();
+                StreamGraphics.Instance.reset();
             }
             else if (action == "pointerdown")
             {
-                StreamGraphics.Insance.onPointerDown(x, y);
+                StreamGraphics.Instance.onPointerDown(x, y);
             }
             else if (action == "keydown")
             {
@@ -58,7 +58,7 @@ namespace StreamGraphics.Controllers
                 {
                     key = " ";
                 }
-                StreamGraphics.Insance.onKeyDown(key);
+                StreamGraphics.Instance.onKeyDown(key);
             }
             else if (action == "keyup")
             {
@@ -66,7 +66,7 @@ namespace StreamGraphics.Controllers
                 {
                     key = " ";
                 }
-                StreamGraphics.Insance.onKeyUp(key);
+                StreamGraphics.Instance.onKeyUp(key);
             }
         }
     }
